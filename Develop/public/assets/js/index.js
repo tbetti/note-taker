@@ -1,13 +1,4 @@
 // Client Side
-const app = require('express');
-const router = require('./server');
-
-app.use('/api', router);
-
-app.get('/notes', (req, res) =>{
-  res.sendFile('../notes.html');
-})
-
 let noteTitle;
 let noteText;
 let saveNoteBtn;
