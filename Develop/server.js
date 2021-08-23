@@ -17,6 +17,17 @@ app.get('/api/notes', (req, res) =>{
   res.sendFile(path.join(__dirname, '/db/db.json'));
 });
 
+// Return single note
+app.get('/api/notes/:id', (req, res) => {
+  const found = notes.some(note => note.id === req.params.id);
+
+  if(found){
+    res.json(notes.filter(note => note.id === req.params.id));
+  }else{
+    res.status(400).json({ msg: `${req.params.id} not found` });
+  }
+});
+
 // Create a new note
 app.post('/api/notes', (req, res) => {
   const newNote = {
@@ -30,7 +41,7 @@ app.post('/api/notes', (req, res) => {
   }else{
     res.status(400).json( { msg: 'Include title and text' } );
   }
-})
+});
 
 // Return nodes.html when /notes called
 app.get('/notes', (req, res) => {
@@ -41,7 +52,8 @@ app.get('/notes', (req, res) => {
 // Must stay at the bottom
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/public/index.html'));
-})
+});
 
+// Listen at PORT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
