@@ -18,6 +18,8 @@
 
   ## Usage
   To use the app, navigate to the [homepage](https://note-taker-bettinson.herokuapp.com/), and click “Get Started”.  Enter a note title and note text.  Once both fields have entries, a save icon will appear in the top righthand corner. Click to save the note. All notes will appear in a list on the lefthand side of the screen. To view a saved note, click on its list item. The selected note will display on the main part of the screen.  Click the “trash” icons next to each note to delete.
+  ![Note-Taker Homepage](/Develop/public/assets/Note-Taker-Home.png)
+  ![Demo: how to use app](/Develop/public/assets/note-taker-demo.gif)
 
   ## License
   This project is registered under the [MIT License](/LICENSE)
