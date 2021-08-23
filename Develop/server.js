@@ -7,7 +7,7 @@ const notes = require('./routes/notes');
 
 // Initialize middleware
 app.use(express.json());
-app.use(express.urlencoded( { extended: false }));
+app.use(express.urlencoded( { extended: true }));
 
 // Return db.json when at /api/notes
 app.use('/api/notes', notes);
