@@ -2,46 +2,15 @@
 // Call in packages
 const express = require('express');
 const path = require('path');
-const uuid = require('uuid');
 const app = express();
-const notes = require('./db/db.json');
+const notes = require('./routes/notes');
 
 // Initialize middleware
 app.use(express.json());
 app.use(express.urlencoded( { extended: false }));
 
 // Return db.json when at /api/notes
-// Return all notes
-app.get('/api/notes', (req, res) =>{
-  console.log(notes);
-  res.sendFile(path.join(__dirname, '/db/db.json'));
-});
-
-// Return single note
-app.get('/api/notes/:id', (req, res) => {
-  const found = notes.some(note => note.id === req.params.id);
-
-  if(found){
-    res.json(notes.filter(note => note.id === req.params.id));
-  }else{
-    res.status(400).json({ msg: `${req.params.id} not found` });
-  }
-});
-
-// Create a new note
-app.post('/api/notes', (req, res) => {
-  const newNote = {
-    id: uuid.v4().substr(0,3),
-    title: req.body.title,
-    text: req.body.text
-  }
-  if(newNote.title && newNote.text){
-    notes.push(newNote);
-    res.json(notes);
-  }else{
-    res.status(400).json( { msg: 'Include title and text' } );
-  }
-});
+app.use('/api/notes', notes);
 
 // Return nodes.html when /notes called
 app.get('/notes', (req, res) => {
