@@ -8,7 +8,7 @@ const notes = require('./routes/notes');
 // Initialize middleware
 app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
-app.use(express.static('public')); // Would I put this here or in the notes.js file? Do I need a dirname?
+app.use(express.static('public'));
 
 // Return db.json when at /api/notes
 app.use('/api/notes', notes);
