@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const { isBuffer } = require('util');
 const uuid = require('uuid');
 let notes = require('../db/db.json');
 
@@ -22,7 +21,7 @@ router.get('/:id', (req, res) => {
     }
 });
 
-// Create a new note and persist data
+// Create a new note
 router.post('/', (req, res) => {
     const newNote = {
         id: uuid.v4().substr(0, 3),
@@ -30,9 +29,9 @@ router.post('/', (req, res) => {
         text: req.body.text
     }
     if (newNote.title && newNote.text) {
-        // push new entry
+        // Push new entry to notes object
         notes.push(newNote)
-        //Overwrite existing file with new data
+        // Overwrite existing file with new data
         fs.writeFile(
             './db/db.json',
             JSON.stringify(notes, null, ' '),
@@ -49,7 +48,9 @@ router.delete('/:id', (req, res) => {
     const found = notes.some(note => note.id === req.params.id);
 
     if (found) {
+        // Delete note from notes object
         notes = notes.filter(note => note.id !== req.params.id);
+        //Overwrite existing file with new data that does not contain deleted note
         fs.writeFile(
             './db/db.json',
             JSON.stringify(notes, null, ' '),
